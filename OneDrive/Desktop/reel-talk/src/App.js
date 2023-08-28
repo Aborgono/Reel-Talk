@@ -1,47 +1,52 @@
-import { useEffect, useState } from 'react';
+
+import { useNavigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { Auth } from './components/auth';
+import HomePage from './components/homePage';
+import { useState } from 'react';
+import { auth } from './config/firebase'
+import { signOut} from "firebase/auth";
 
-import {db} from "./config/firebase"
-import {getDocs, collection} from 'firebase/firestore'
 
 function App() {
-  const[movieList, setMovieList] = useState([]);
 
-  const moviesCollectionRef = collection(db, "movies")
+  const [signedIn, setSignedIn] = useState(false)
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
-  useEffect(() => {
-    const getMovieList = async () => {
-      try {
-        const data = await getDocs(moviesCollectionRef);
-        const filteredData = data.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }))
-        setMovieList(filteredData);
-        console.log(filteredData);
-      } catch (err) {
-        console.error(err);
-      } 
-    };
-
-    getMovieList();
-  }, []);
+  const logIn = () => {
+    setSignedIn(true)
+    navigate('/homePage')
+  }
 
   
+  const logOut = async () => {
+    try {
+        await signOut (auth)
+        alert ('You have signed out!')
+    } catch (err) {
+        console.error()
+    }
+};  
+
   return (
-    <div className='App'>
-      <Auth />
-      <div>
-        {movieList.map((movie) => (
-          <div>
-            <h1> {movie.title} </h1>
-            <p> Date: {movie.releaseDate} </p>
-          </div>
-        ))}
-      </div>
-    </div>
+    <>
+      <Routes>
+        <Route path='/' element={<Auth logOut={logOut} logIn={logIn} email={email} password={password} setEmail={setEmail} setPassword={setPassword} />}></Route>
+        <Route path='/homePage' element={<HomePage logOut={logOut} signedIn={setSignedIn} email={email} password={password} setEmail={setEmail} setPassword={setPassword} />}></Route>
+      </Routes>
+    </>
   );
 }
 
 export default App;
+
+// <div className='App'>
+//           <Auth />
+//           <div>
+//             <input type='checkbox' />
+//             <label> Liked </label>
+//             <button> Submit Like </button>
+//           </div>
+//         </div>
