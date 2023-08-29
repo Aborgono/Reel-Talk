@@ -25,10 +25,11 @@ function App() {
     try {
         await signOut (auth)
         alert ('You have signed out!')
+        navigate('/')
     } catch (err) {
         console.error()
     }
-};  
+};
 
   return (
     <>
@@ -41,12 +42,3 @@ function App() {
 }
 
 export default App;
-
-// <div className='App'>
-//           <Auth />
-//           <div>
-//             <input type='checkbox' />
-//             <label> Liked </label>
-//             <button> Submit Like </button>
-//           </div>
-//         </div>
