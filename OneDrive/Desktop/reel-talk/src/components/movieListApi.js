@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function MovieAPI() {
 
@@ -22,6 +23,7 @@ function MovieAPI() {
             </div>
         )
         })}
+        <Link to='/'>Back to Home</Link>
     </>
   );
 }
