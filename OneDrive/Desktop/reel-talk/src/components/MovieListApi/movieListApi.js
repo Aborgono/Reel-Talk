@@ -27,18 +27,4 @@ function MovieAPI() {
   );
 }
 
-//   return (
-//     <>
-//         {listMovie.map((movie) => {
-//         return (
-//             <div>
-//                 {movie.original_title}
-//             </div>
-//         )
-//         })}
-//         <Link to='/'>Back to Home</Link>
-//     </>
-//   );
-// }
-
 export default MovieAPI;

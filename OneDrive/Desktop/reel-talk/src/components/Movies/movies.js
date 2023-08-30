@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import {db} from "../../config/firebase"
-import {getDocs, doc, collection, updateDoc, arrayUnion} from 'firebase/firestore'
+import {getDocs, doc, collection, updateDoc, arrayUnion, arrayRemove} from 'firebase/firestore'
 import './movies.css';
 
 function Movies(props) {
@@ -30,14 +30,30 @@ function Movies(props) {
     getMovieList();
   }, []);
 
-    const onSubmit = async (movieId) => {
-
-        if(likedChecked){
+    const like = async (movieId) => {
+        setLikedChecked(!likedChecked)
+        if(!likedChecked){
             try {
                 const movieDocRef = doc(db, "movies", movieId);
 
                 await updateDoc(movieDocRef, {
                     liked: arrayUnion(userId),
+                });
+            } catch (err) {
+                console.error(err);
+            }
+        }
+    };
+
+
+    const unLike = async (movieId) => {
+        setLikedChecked(!likedChecked)
+        if(likedChecked){
+            try {
+                const movieDocRef = doc(db, "movies", movieId);
+
+                await updateDoc(movieDocRef, {
+                    liked: arrayRemove(userId),
                 });
             } catch (err) {
                 console.error(err);
@@ -52,20 +68,25 @@ function Movies(props) {
               {movieList.map((movie) => (
                   <div key={movie.id} className="movie-card">
                       <h1 className="movie-title">{movie.title}</h1>
-                      <p className="movie-release-date">Date: {movie.releaseDate}</p>
+                      <p className="movie-release-date">Release Date: {movie.releaseDate}</p>
                       <div className="like-container">
                           <input
                               type="checkbox"
                               checked={likedChecked}
-                              onChange={() => setLikedChecked(!likedChecked)}
                               className="like-checkbox"
                           />
-                          <label>Liked</label>
+                          <label></label>
                           <button
-                              onClick={() => onSubmit(movie.id)}
+                              onClick={() => like(movie.id)}
                               className="submit-like-button"
                           >
-                              Submit Like
+                              Like
+                          </button>
+                          <button
+                              onClick={() => unLike(movie.id)}
+                              className="submit-like-button"
+                          >
+                              Remove Like
                           </button>
                       </div>
                   </div>

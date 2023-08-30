@@ -9,10 +9,9 @@ function PasswordReset(props) {
 
 
     const resetPassword = async () => {
-        console.log("this is my email", email);
         try {
             await sendPasswordResetEmail(auth, email)
-            console.log('Password reset email sent');
+            alert('Password reset email sent.');
         } catch (err) {
             console.error(err)
         }

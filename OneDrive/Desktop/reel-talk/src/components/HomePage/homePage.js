@@ -16,7 +16,7 @@ function HomePage(props) {
     return (
       <div className="App">
           <div className="greeting-container">
-              <span className="greeting">Hello</span> {currentUser}
+              <span className="greeting">Signed in as: </span> {currentUser}
               <button onClick={logOut} className="logout-button">
                   Logout
               </button>

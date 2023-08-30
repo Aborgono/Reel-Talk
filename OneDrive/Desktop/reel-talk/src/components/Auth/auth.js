@@ -16,6 +16,7 @@ export const Auth = (props) => {
             alert ('You have signed up!')
             logIn();
         } catch (err) {
+            alert('You already have an account, try signing in!')
             console.error()
         }
     };
@@ -26,6 +27,7 @@ export const Auth = (props) => {
             alert ('You are signed in!')
             logIn();
         } catch (err) {
+            alert('Password is incorrect, please try again.')
             console.error()
         }
     };
