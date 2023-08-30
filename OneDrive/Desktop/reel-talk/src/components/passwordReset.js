@@ -1,9 +1,9 @@
-import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { auth } from "../config/firebase";
 
 function PasswordReset(props) {
     const email = props.email
     const setEmail = props.setEmail
-    const auth = getAuth();
 
 
     const resetPassword = async () => {
