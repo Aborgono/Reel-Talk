@@ -1,6 +1,7 @@
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../../config/firebase";
 import './passwordReset.css';
+import { Link } from "react-router-dom";
 
 function PasswordReset(props) {
     const email = props.email
@@ -29,6 +30,11 @@ function PasswordReset(props) {
             <button onClick={resetPassword} className="reset-button">
                 Reset Password
             </button>
+            <Link to={'/'}>
+                <button className="reset-button">
+                    Back to HomePage
+                </button>
+            </Link>
         </div>
     );
 }
