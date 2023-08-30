@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-
-import {db} from "../config/firebase"
+import {db} from "../../config/firebase"
 import {getDocs, doc, collection, updateDoc, arrayUnion} from 'firebase/firestore'
+import './movies.css';
 
 function Movies(props) {
   const[movieList, setMovieList] = useState([]);
@@ -45,25 +45,33 @@ function Movies(props) {
         }
     };
 
-  return (
-    <div>
+    
+    return (
       <div>
-        {movieList.map((movie) => (
-          <div key={movie.id}>
-            <h1> {movie.title} </h1>
-            <p> Date: {movie.releaseDate} </p>
-                <input
-                    type='checkbox'
-                    checked={likedChecked}
-                    onChange={() => setLikedChecked(!likedChecked)}    
-                />
-                <label> Liked </label>
-                <button onClick={() => onSubmit(movie.id)}> Submit Like </button>
+          <div>
+              {movieList.map((movie) => (
+                  <div key={movie.id} className="movie-card">
+                      <h1 className="movie-title">{movie.title}</h1>
+                      <p className="movie-release-date">Date: {movie.releaseDate}</p>
+                      <div className="like-container">
+                          <input
+                              type="checkbox"
+                              checked={likedChecked}
+                              onChange={() => setLikedChecked(!likedChecked)}
+                              className="like-checkbox"
+                          />
+                          <label>Liked</label>
+                          <button
+                              onClick={() => onSubmit(movie.id)}
+                              className="submit-like-button"
+                          >
+                              Submit Like
+                          </button>
+                      </div>
+                  </div>
+              ))}
           </div>
-        ))}
       </div>
-    </div>
   );
 }
-
 export default Movies;

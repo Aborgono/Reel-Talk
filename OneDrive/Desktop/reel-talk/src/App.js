@@ -1,13 +1,13 @@
 
 import { useNavigate, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { Auth } from './components/auth';
-import HomePage from './components/homePage';
+import { Auth } from './components/Auth/auth';
+import HomePage from './components/HomePage/homePage';
 import { useState } from 'react';
 import { auth } from './config/firebase'
 import { signOut} from "firebase/auth";
-import PasswordReset from './components/passwordReset';
-import MovieAPI from './components/movieListApi';
+import PasswordReset from './components/PasswordReset/passwordReset';
+import MovieAPI from './components/MovieListApi/movieListApi';
 
 
 function App() {

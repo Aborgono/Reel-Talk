@@ -1,7 +1,7 @@
-import { auth } from '../config/firebase'
+import { auth } from '../../config/firebase'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
 import { Link } from 'react-router-dom';
-
+import './auth.css';
 
 export const Auth = (props) => {
     const email = props.email
@@ -31,25 +31,32 @@ export const Auth = (props) => {
     };
     
     return (
-        <div>
+        <div className="auth-form-container">
             <input
                 placeholder="Email..."
                 onChange={(e) => setEmail(e.target.value)}
+                className="auth-input"
             />
             <input
                 placeholder="Password..."
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
+                className="auth-input"
             />
-            <button onClick={signUp}> Sign Up </button>
-            <button onClick={signIn}> Sign In </button>
-            <Link to='/resetPassword'>
-                <button> Reset Password </button>
+            <button onClick={signUp} className="auth-button">
+                Sign Up
+            </button>
+            <button onClick={signIn} className="auth-button">
+                Sign In
+            </button>
+            <Link to="/resetPassword" className="auth-link">
+                <button className="auth-button">Reset Password</button>
             </Link>
-
-            <Link to='/movies'>List of Top Rated Movies</Link>
+            <Link to="/movies" className="auth-link">
+                List of Top Rated Movies
+            </Link>
         </div>
     );
-};
+}
 
 export default Auth
