@@ -20,7 +20,7 @@ function Movies(props) {
           ...doc.data(),
           id: doc.id,
         }))
-        setMovieList(filteredData);
+        setMovieList(filteredData);  
       } catch (err) {
         console.error(err);
       } 
@@ -73,8 +73,8 @@ function Movies(props) {
                               type="checkbox"
                               checked={likedChecked}
                               className="like-checkbox"
+                              readOnly
                           />
-                          <label></label>
                           <button
                               onClick={() => like(movie.id)}
                               className="submit-like-button"

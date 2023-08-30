@@ -11,7 +11,7 @@ function HomePage(props) {
     const currentUser = auth?.currentUser?.email;
     const userId = auth?.currentUser?.uid;
 
-    console.log(currentUser);
+    console.log("this is my currentUser", currentUser);
 
     return (
       <div className="App">
