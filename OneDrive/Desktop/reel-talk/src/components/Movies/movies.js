@@ -21,7 +21,6 @@ function Movies(props) {
           id: doc.id,
         }))
         setMovieList(filteredData);
-        console.log(filteredData);
       } catch (err) {
         console.error(err);
       } 
@@ -31,13 +30,13 @@ function Movies(props) {
   }, []);
 
     const like = async (movieId) => {
-        setLikedChecked(!likedChecked)
+        setLikedChecked(true)
         if(!likedChecked){
             try {
                 const movieDocRef = doc(db, "movies", movieId);
 
                 await updateDoc(movieDocRef, {
-                    liked: arrayUnion(userId),
+                    likedByUser: arrayUnion(userId),
                 });
             } catch (err) {
                 console.error(err);
@@ -47,13 +46,13 @@ function Movies(props) {
 
 
     const unLike = async (movieId) => {
-        setLikedChecked(!likedChecked)
+        setLikedChecked(false)
         if(likedChecked){
             try {
                 const movieDocRef = doc(db, "movies", movieId);
 
                 await updateDoc(movieDocRef, {
-                    liked: arrayRemove(userId),
+                    likedByUser: arrayRemove(userId),
                 });
             } catch (err) {
                 console.error(err);
