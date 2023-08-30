@@ -1,7 +1,6 @@
 import { auth } from '../config/firebase'
-import { createUserWithEmailAndPassword, getAuth, sendPasswordResetEmail, signInWithEmailAndPassword} from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
 import { Link } from 'react-router-dom';
-// import { useState } from 'react';
 
 
 export const Auth = (props) => {
@@ -30,16 +29,6 @@ export const Auth = (props) => {
             console.error()
         }
     };
-
-    const resetPassword = async () => {
-        try {
-            // console.log("THIS IS WORKING", email);
-            await sendPasswordResetEmail(email)
-            alert ('Password reset email sent')
-        } catch (err) {
-            console.error()
-        }
-    };
     
     return (
         <div>
@@ -54,15 +43,13 @@ export const Auth = (props) => {
             />
             <button onClick={signUp}> Sign Up </button>
             <button onClick={signIn}> Sign In </button>
-            <button onClick={resetPassword}> Reset Password </button>
+            <Link to='/resetPassword'>
+                <button> Reset Password </button>
+            </Link>
 
             <Link to='/movies'>List of Top Rated Movies</Link>
-{/* 
-            
-            <div className='forgot-password'>
-            <Link to='/forgot-password'>Forgot your Password?</Link>
-            </div> */}
-
         </div>
     );
 };
+
+export default Auth

@@ -1,95 +1,33 @@
-// import { useState } from "react";
-// import { useSearchParams, useNavigate } from "react-router-dom";
-// import { confirmThePasswordReset } from "../config/firebase";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
-// const defaultFormFields = {
-//   password: "",
-//   confirmPassword: "",
-// };
+function PasswordReset(props) {
+    const email = props.email
+    const setEmail = props.setEmail
+    const auth = getAuth();
 
-// function PasswordReset() {
-//   const navigate = useNavigate();
-//   const [searchParams] = useSearchParams();
-//   const [successMessage, setSuccessMessage] = useState(false);
-//   const [formFields, setFormFields] = useState(defaultFormFields);
-//   const { password, confirmPassword } = formFields;
 
-//   let oobCode = searchParams.get("oobCode");
+    const resetPassword = async () => {
+        console.log("this is my email", email);
+        try {
+            await sendPasswordResetEmail(auth, email)
+            console.log('Password reset email sent');
+        } catch (err) {
+            console.error(err)
+        }
+    };
 
-//   const resetFormFields = () => {
-//     setFormFields(defaultFormFields);
-//   };
+  return (
+    <div>
+        <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            />
+        <button onClick={resetPassword}> Reset Password </button>
 
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
+    </div>
+  );
+}
 
-//     if (password !== confirmPassword) {
-//       alert("Passwords did not match.");
-//       return;
-//     }
-
-//     try {
-//       if (oobCode) {
-//         await confirmThePasswordReset(oobCode, confirmPassword);
-//         resetFormFields();
-//         setSuccessMessage(true);
-//       } else {
-//         alert("Something is wrong; try again later!");
-//         console.log("missing oobCode");
-//       }
-//     } catch (error) {
-//       if (error.code === "auth/invalid-action-code") {
-//         alert("Something is wrong; try again later.");
-//       }
-//       console.log(error.message);
-//     }
-//   };
-
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormFields({ ...formFields, [name]: value });
-//   };
-
-//   return (
-//     <div>
-//       {successMessage ? (
-//         <div>
-//           <h3>Success! Your Password change was successful</h3>
-//           <button onClick={() => navigate("/")}>
-//             Go to the Login page
-//           </button>
-//         </div>
-//       ) : (
-//         <div className="card">
-//           <form onSubmit={handleSubmit}>
-//             <div>
-//               <input
-//                 type="password"
-//                 name="password"
-//                 value={password}
-//                 onChange={handleChange}
-//                 placeholder="New Password"
-//                 required
-//               />
-//             </div>
-//             <div>
-//               <input
-//                 type="password"
-//                 name="confirmPassword"
-//                 value={confirmPassword}
-//                 onChange={handleChange}
-//                 placeholder="Confirm Password"
-//                 required
-//               />
-//             </div>
-//             <div>
-//               <input type="submit" />
-//             </div>
-//           </form>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
-
-// export default PasswordReset;
+export default PasswordReset;

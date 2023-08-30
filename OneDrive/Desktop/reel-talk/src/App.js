@@ -6,7 +6,6 @@ import HomePage from './components/homePage';
 import { useState } from 'react';
 import { auth } from './config/firebase'
 import { signOut} from "firebase/auth";
-import ForgotPassword from './components/forgotPassword';
 import PasswordReset from './components/passwordReset';
 import MovieAPI from './components/movieListApi';
 
@@ -40,14 +39,10 @@ function App() {
         <Route path='/' element={<Auth logOut={logOut} logIn={logIn} email={email} password={password} setEmail={setEmail} setPassword={setPassword} />}></Route>
         <Route path='/homePage' element={<HomePage logOut={logOut} signedIn={setSignedIn} email={email} password={password} setEmail={setEmail} setPassword={setPassword} />}></Route>
         <Route path='/movies' element={<MovieAPI />}></Route>
-        {/* <Route 
-          path="forgot-password" 
-          element={<ForgotPassword />} 
-        />
         <Route
-          path="emulator/action" 
-          element={<PasswordReset />} 
-        /> */}
+          path="/resetPassword" 
+          element={<PasswordReset email={email} setEmail={setEmail} />} 
+        />
       </Routes>
     </>
   );

@@ -1,7 +1,6 @@
-// import { useEffect, useState } from 'react';
 import Movies from './movies';
 import {auth} from "../config/firebase"
-import MovieAPI from './movieListApi';
+
 
 function HomePage(props) {
 
@@ -21,7 +20,6 @@ function HomePage(props) {
             <button onClick={logOut}> Logout </button>
         </div>
         <Movies currentUser={currentUser} userId={userId} />
-        <MovieAPI />
     </div>
   );
 }
