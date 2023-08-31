@@ -1,17 +1,22 @@
 import Movies from '../Movies/movies';
 import {auth} from "../../config/firebase"
 import './homePage.css';
+import { useEffect } from 'react';
+import { useNavigateavigate } from 'react-router-dom';
 
 
 function HomePage(props) {
 
 
     const logOut = props.logOut
-
+    const navigate = props.navigate;
     const currentUser = auth?.currentUser?.email;
     const userId = auth?.currentUser?.uid;
-
-    console.log("this is my currentUser", currentUser);
+    useEffect(() => {
+        if (!currentUser) {
+            navigate('/')
+        }
+    }, [])
 
     return (
       <div className="App">

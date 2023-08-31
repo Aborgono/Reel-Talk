@@ -39,7 +39,7 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={<Auth logOut={logOut} logIn={logIn} email={email} password={password} setEmail={setEmail} setPassword={setPassword} />}></Route>
-        <Route path='/homePage' element={<HomePage logOut={logOut} signedIn={setSignedIn} email={email} password={password} setEmail={setEmail} setPassword={setPassword} />}></Route>
+        <Route path='/homePage' element={<HomePage navigate={navigate} logOut={logOut} signedIn={setSignedIn} email={email} password={password} setEmail={setEmail} setPassword={setPassword} />}></Route>
         <Route path='/movies' element={<MovieAPI />}></Route>
         <Route
           path="/resetPassword" 

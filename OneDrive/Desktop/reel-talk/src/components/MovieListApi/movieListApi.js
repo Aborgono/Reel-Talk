@@ -13,8 +13,6 @@ function MovieAPI() {
       });
     }, []);
 
-    console.log("this is my movie list", listMovie);
-
     return (
       <div className="movie-list">
           {listMovie.map((movie) => (
