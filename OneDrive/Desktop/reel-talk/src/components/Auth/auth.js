@@ -14,7 +14,7 @@ export const Auth = (props) => {
         try {
             await createUserWithEmailAndPassword(auth, email, password)
             alert ('You have signed up!')
-            logIn();
+            logIn(email, password);
         } catch (err) {
             alert('You already have an account, try signing in!')
             console.error()
@@ -25,7 +25,7 @@ export const Auth = (props) => {
         try {
             await signInWithEmailAndPassword(auth, email, password)
             alert ('You are signed in!')
-            logIn();
+            logIn(email, password);
         } catch (err) {
             alert('Password is incorrect, please try again.')
             console.error()

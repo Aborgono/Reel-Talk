@@ -6,8 +6,6 @@ import './movies.css';
 function Movies(props) {
   const[movieList, setMovieList] = useState([]);
   const userId = props.userId
-  // const currentUser = props.currentUser
-  const [likedChecked, setLikedChecked] = useState(false);
 
 
   const moviesCollectionRef = collection(db, "movies")
@@ -16,11 +14,20 @@ function Movies(props) {
     const getMovieList = async () => {
       try {
         const data = await getDocs(moviesCollectionRef);
-        const filteredData = data.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }))
-        setMovieList(filteredData);  
+        const filteredData = data.docs.map((doc) => {
+            const movieLikes = doc['_document']['data']['value']['mapValue']['fields']['likedByUser']['arrayValue']['values'];
+            let isMovieLiked = movieLikes.find((likes) => likes.stringValue === userId)
+            let liked = false
+            if (isMovieLiked) {
+                liked = true
+            }
+            return {
+                ...doc.data(),
+                id: doc.id,
+                liked
+            }
+        })
+        setMovieList(filteredData);
       } catch (err) {
         console.error(err);
       } 
@@ -29,11 +36,17 @@ function Movies(props) {
     getMovieList();
   }, []);
 
-    const like = async (movieId) => {
-        setLikedChecked(true)
-        if(!likedChecked){
+    const like = async (likedMovie) => { //likedMovie is our entire movie object
+        const updatedMovieList = movieList.map((movie) => {
+            if (movie.id === likedMovie.id) {
+                movie.liked = true
+            }
+            return movie
+        })
+        setMovieList(updatedMovieList);
+        if(likedMovie.liked){
             try {
-                const movieDocRef = doc(db, "movies", movieId);
+                const movieDocRef = doc(db, "movies", likedMovie.id);
 
                 await updateDoc(movieDocRef, {
                     likedByUser: arrayUnion(userId),
@@ -45,11 +58,17 @@ function Movies(props) {
     };
 
 
-    const unLike = async (movieId) => {
-        setLikedChecked(false)
-        if(likedChecked){
+    const unLike = async (likedMovie) => {
+        const updatedMovieList = movieList.map((movie) => {
+            if (movie.id === likedMovie.id) {
+                movie.liked = false
+            }
+            return movie
+        })
+        setMovieList(updatedMovieList);
+        if(!likedMovie.liked){
             try {
-                const movieDocRef = doc(db, "movies", movieId);
+                const movieDocRef = doc(db, "movies", likedMovie.id);
 
                 await updateDoc(movieDocRef, {
                     likedByUser: arrayRemove(userId),
@@ -71,18 +90,18 @@ function Movies(props) {
                       <div className="like-container">
                           <input
                               type="checkbox"
-                              checked={likedChecked}
+                              checked={movie.liked}
                               className="like-checkbox"
                               readOnly
                           />
                           <button
-                              onClick={() => like(movie.id)}
+                              onClick={() => like(movie)}
                               className="submit-like-button"
                           >
                               Like
                           </button>
                           <button
-                              onClick={() => unLike(movie.id)}
+                              onClick={() => unLike(movie)}
                               className="submit-like-button"
                           >
                               Remove Like

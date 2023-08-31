@@ -13,11 +13,13 @@ import MovieAPI from './components/MovieListApi/movieListApi';
 function App() {
 
   const [signedIn, setSignedIn] = useState(false)
+  const [user, setUser] = useState()
   const navigate = useNavigate();
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  const logIn = () => {
+  const logIn = (email, password) => {
+    setUser({email, password})
     setSignedIn(true)
     navigate('/homePage')
   }
