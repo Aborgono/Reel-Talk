@@ -13,6 +13,7 @@ function MovieAPI() {
 
     const fetchData = async () => {
       const res = await axios.get('http://localhost:5000/api/movies');
+      setListMovie(res.data.movies)
       console.log("THIS IS RES", res.data);
     };
 
@@ -20,7 +21,7 @@ function MovieAPI() {
       <div className="movie-list">
           {listMovie.map((movie) => (
               <div key={movie.id} className="movie-card">
-                  <div className="movie-title">{movie.original_title}</div>
+                  <div className="movie-title">{movie.title}</div>
               </div>
           ))}
           <Link to="/" className="back-link">Back to Home</Link>
