@@ -3,18 +3,24 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './movieListApi.css';
 
-function MovieAPI() {
+function MovieAPI({token}) {
 
     const [listMovie, setListMovie] = useState([]);
 
     useEffect(() => {
-      fetchData();
-    }, []);
+      if (token) {
+          fetchData(token);
+      }
+    }, [token]);
 
-    const fetchData = async () => {
-      const res = await axios.get('http://localhost:5000/api/movies');
+    const fetchData = async (token) => {
+      const res = await axios.get('http://localhost:5000/api/movies', {
+        headers: {
+          Authorization: 'Bearer' + token,
+        },
+      });
       setListMovie(res.data.movies)
-      console.log("THIS IS RES", res.data);
+      console.log(res.data.movies);
     };
 
     return (

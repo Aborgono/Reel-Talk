@@ -2,6 +2,7 @@ import { auth } from '../../config/firebase'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
 import { Link } from 'react-router-dom';
 import './auth.css';
+import { useState } from 'react';
 
 export const Auth = (props) => {
     const email = props.email
@@ -9,12 +10,16 @@ export const Auth = (props) => {
     const setEmail = props.setEmail
     const setPassword = props.setPassword
     const logIn = props.logIn
+    const token = props.token
+    const setToken = props.setToken
+    // const [token, setToken] = useState('')
 
     const signUp = async () => {
         try {
             await createUserWithEmailAndPassword(auth, email, password)
             alert ('You have signed up!')
             logIn(email, password);
+            setToken(auth?.currentUser?.accessToken)
         } catch (err) {
             alert('You already have an account, try signing in!')
             console.error()
@@ -26,6 +31,7 @@ export const Auth = (props) => {
             await signInWithEmailAndPassword(auth, email, password)
             alert ('You are signed in!')
             logIn(email, password);
+            setToken(auth?.currentUser?.accessToken)
         } catch (err) {
             alert('Password is incorrect, please try again.')
             console.error()

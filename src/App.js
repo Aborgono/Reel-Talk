@@ -17,6 +17,7 @@ function App() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [token, setToken] = useState('')
 
   const logIn = (email, password) => {
     setUser({email, password})
@@ -38,8 +39,8 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/' element={<Auth logOut={logOut} logIn={logIn} email={email} password={password} setEmail={setEmail} setPassword={setPassword} />}></Route>
-        <Route path='/homePage' element={<HomePage navigate={navigate} logOut={logOut} signedIn={setSignedIn} email={email} password={password} setEmail={setEmail} setPassword={setPassword} />}></Route>
+        <Route path='/' element={<Auth token={token} setToken={setToken} logOut={logOut} logIn={logIn} email={email} password={password} setEmail={setEmail} setPassword={setPassword} />}></Route>
+        <Route path='/homePage' element={<HomePage token={token} setToken={setToken} navigate={navigate} logOut={logOut} signedIn={setSignedIn} email={email} password={password} setEmail={setEmail} setPassword={setPassword} />}></Route>
         <Route path='/movies' element={<MovieAPI />}></Route>
         <Route
           path="/resetPassword" 

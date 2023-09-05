@@ -3,6 +3,7 @@ import {auth} from "../../config/firebase"
 import './homePage.css';
 import { useEffect } from 'react';
 import { useNavigateavigate } from 'react-router-dom';
+import MovieAPI from '../MovieListApi/movieListApi';
 
 
 function HomePage(props) {
@@ -12,6 +13,9 @@ function HomePage(props) {
     const navigate = props.navigate;
     const currentUser = auth?.currentUser?.email;
     const userId = auth?.currentUser?.uid;
+    const token = props.token
+    const setToken = props.setToken
+
     useEffect(() => {
         if (!currentUser) {
             navigate('/')
@@ -29,6 +33,10 @@ function HomePage(props) {
           <div className="movies-container">
               <Movies currentUser={currentUser} userId={userId} />
           </div>
+          <div className="movies-container">
+              <MovieAPI token={token} currentUser={currentUser} userId={userId} />
+          </div>
+
       </div>
   );
 }

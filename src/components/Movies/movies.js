@@ -14,7 +14,9 @@ function Movies(props) {
     const getMovieList = async () => {
       try {
         const data = await getDocs(moviesCollectionRef);
+        // console.log(data);
         const filteredData = data.docs.map((doc) => {
+            // console.log("this is my data", doc);
             const movieLikes = doc['_document']['data']['value']['mapValue']['fields']['likedByUser']['arrayValue']['values'];
             let isMovieLiked = movieLikes.find((likes) => likes.stringValue === userId)
             let liked = false
