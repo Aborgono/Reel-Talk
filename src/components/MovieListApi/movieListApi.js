@@ -8,10 +8,13 @@ function MovieAPI() {
     const [listMovie, setListMovie] = useState([]);
 
     useEffect(() => {
-      axios.get('https://api.themoviedb.org/3/movie/popular?api_key=9a18ce06bba8a0e8dba96a97dfd2a61e').then((response) => {
-        setListMovie(response.data.results)
-      });
+      fetchData();
     }, []);
+
+    const fetchData = async () => {
+      const res = await axios.get('http://localhost:5000/api/movies');
+      console.log("THIS IS RES", res.data);
+    };
 
     return (
       <div className="movie-list">
