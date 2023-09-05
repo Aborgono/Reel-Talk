@@ -1,0 +1,37 @@
+/* HomePage.css */
+
+.App {
+    text-align: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.greeting-container {
+    margin-bottom: 20px;
+}
+
+.greeting {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.logout-button {
+    padding: 8px 16px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 1rem;
+}
+
+.logout-button:hover {
+    background-color: #c82333;
+}
+
+.movies-container {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
