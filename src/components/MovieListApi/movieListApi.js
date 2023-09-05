@@ -15,7 +15,6 @@ function MovieAPI() {
 
     return (
       <div className="movie-list">\
-        <div>HELLO </div>
           {listMovie.map((movie) => (
               <div key={movie.id} className="movie-card">
                   <div className="movie-title">{movie.original_title}</div>
