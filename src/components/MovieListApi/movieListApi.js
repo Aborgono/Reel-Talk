@@ -16,11 +16,11 @@ function MovieAPI({token}) {
     const fetchData = async (token) => {
       const res = await axios.get('http://localhost:5000/api/movies', {
         headers: {
-          Authorization: 'Bearer' + token,
+          Authorization: 'Bearer ' + token,
         },
       });
       setListMovie(res.data.movies)
-      console.log(res.data.movies);
+      // console.log(res.data.movies);
     };
 
     return (
