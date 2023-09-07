@@ -19,6 +19,8 @@ function HomePage(props) {
     useEffect(() => {
         if (!currentUser) {
             navigate('/')
+        } else {
+            console.log("this is my auth", auth);
         }
     }, [])
 
